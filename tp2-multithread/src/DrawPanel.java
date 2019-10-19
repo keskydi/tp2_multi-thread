@@ -30,7 +30,7 @@ private ArrayList<Bird> bird = new ArrayList<Bird>();
 
 public DrawPanel(){
 	
-	for (int i=0; i<8; i++) 
+	for (int i=0; i<1; i++) 
 			{ Point point = new Point(ThreadLocalRandom.current().nextInt(0, 680),ThreadLocalRandom.current().nextInt(0, 480),pointerSize,pointerColor,pointerType);
 				Bird object = new Bird(point,null,this); 
 				object.start(); 
@@ -104,5 +104,13 @@ public void setPointerColor(Color c){
 //Définit la forme du pointeur
 public void setPointerType(String str){
  this.pointerType = str;
-}      
+}
+
+public ArrayList<Meat> getPoints(){
+	return this.points;
+}
+
+public Meat getLastMeat() {
+	return this.points.get(this.points.size() -1);
+}
 }

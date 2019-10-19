@@ -1,3 +1,9 @@
+
+
+import java.awt.Color;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.Semaphore;
 import java.awt.Color;
 import java.lang.Math;
@@ -7,6 +13,7 @@ public class Bird extends Thread implements Displayable{
  Semaphore sem;
  Point p;
  DrawPanel f;
+ LocalTime test;
  
  public Bird(Point p,Semaphore sem) {
 		this.sem = sem;
@@ -16,6 +23,7 @@ public Bird(Point p,Semaphore sem,DrawPanel f) {
 	this.sem = sem;
 	this.p = p;
 	this.f = f;
+	this.test = LocalTime.now();
 }
 @Override
 public Point getPoint() {
@@ -88,6 +96,20 @@ private void moveTo(Point destPos, double speed) {
 	//repaint();
 	f.repaint();
 }
+
+//private void eat(Meat meat) {
+//	if(meat.sem.tryAcquire()) {
+//		//number of second
+//		if(meat.getTime() < 100) {
+//			f.getPoints().remove(f.getPoints().size() -1);
+//		}else {
+//			meat.getPoint().setColor(Color.yellow);
+//			
+//		}
+//		
+//		meat.sem.release();
+//	}
+//}
 }
 
 
