@@ -1,64 +1,73 @@
 import java.awt.Color;
 
-
 public class Point {
 
-private Color color = Color.red;
-private int size;
-private double x;
-private double y;
-private String type = "ROND";
+	private Color color = Color.red;
+	private int size;
+	private double x;
+	private double y;
+	private String type = "ROND";
 
-public Point(){}
+	public Point() {
+	}
 
-public Point(int x, int y, int size, Color color, String type){
- this.size = size;
- this.x = x;
- this.y = y;
- this.color = color;
- this.type = type;
-}
+	public Point(int x, int y, int size, Color color, String type) {
+		this.size = size;
+		this.x = x;
+		this.y = y;
+		this.color = color;
+		this.type = type;
+	}
 
-public boolean intersect(Point b) {
-	if((this.x > (b.getX() -this.size)) &&
-		(this.x < (b.getX() + b.getSize())) &&
-		(this.y > (b.getY() - this.size)) &&
-		(this.y < (b.getY() + b.getSize()))){
-						return true;
-					}else {return false;}
-}
+	public boolean intersect(Point b) {
+		if ((this.x > (b.getX() - this.size)) && (this.x < (b.getX() + b.getSize()))
+				&& (this.y > (b.getY() - this.size)) && (this.y < (b.getY() + b.getSize()))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 //ACCESSEURS
-public Color getColor() {
- return color;
-}
-public void setColor(Color color) {
- this.color = color;
-}
-public int getSize() {
- return size;
-}
-public void setSize(int size) {
- this.size = size;
-}
-public double getX() {
-	//x+=5;
- return x;
-}
-public void setX(double x) {
- this.x = x;
-}
-public double getY() {
-	//y +=5;
- return y;
-}
-public void setY(double y) {
- this.y = y;
-}
-public String getType() {
- return type;
-}
-public void setType(String type) {
- this.type = type;
-}
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public double getX() {
+		// x+=5;
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		// y +=5;
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }
