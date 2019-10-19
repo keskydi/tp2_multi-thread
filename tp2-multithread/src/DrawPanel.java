@@ -73,7 +73,7 @@ public void paintComponent(Graphics g) {
      g.setColor(p.getColor());
 
      //Selon le type de point
-       g.fillRect(p.getX(), p.getY(), p.getSize(), p.getSize());
+       g.fillRect((int)p.getX(), (int)p.getY(), p.getSize(), p.getSize());
     	//g.drawRect(p.getX(), p.getY(), p.getSize(), p.getSize());
    }
     for(Meat m : this.points)
@@ -83,7 +83,7 @@ public void paintComponent(Graphics g) {
      g.setColor(p.getColor());
 
      //Selon le type de point
-       g.fillRect(p.getX(), p.getY(), p.getSize(), p.getSize());
+       g.fillRect((int)p.getX(), (int)p.getY(), p.getSize(), p.getSize());
     	//g.drawRect(p.getX(), p.getY(), p.getSize(), p.getSize());
    }
  }        

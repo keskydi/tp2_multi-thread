@@ -5,8 +5,8 @@ public class Point {
 
 private Color color = Color.red;
 private int size;
-private int x;
-private int y;
+private double x;
+private double y;
 private String type = "ROND";
 
 public Point(){}
@@ -41,18 +41,18 @@ public int getSize() {
 public void setSize(int size) {
  this.size = size;
 }
-public int getX() {
+public double getX() {
 	//x+=5;
  return x;
 }
-public void setX(int x) {
+public void setX(double x) {
  this.x = x;
 }
-public int getY() {
+public double getY() {
 	//y +=5;
  return y;
 }
-public void setY(int y) {
+public void setY(double y) {
  this.y = y;
 }
 public String getType() {

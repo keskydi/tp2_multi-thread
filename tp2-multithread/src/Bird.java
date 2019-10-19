@@ -1,6 +1,6 @@
-
-
 import java.util.concurrent.Semaphore;
+import java.awt.Color;
+import java.lang.Math;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Bird extends Thread implements Displayable{
@@ -33,9 +33,11 @@ public void run()
 			" is running"); 
 		int min = 0;
 		int max = 5000;
+		Point freshestFood;
 		while(true) {
-			Thread.sleep(100);
-			move();
+			Thread.sleep(10);
+			freshestFood = new Point(0, 0, 0, Color.black, "NON");//getFreshestFood();
+			moveTo(freshestFood, 1);
 			//System.out.println ("Actions: Thread " + 
 				//	Thread.currentThread().getId() + 
 					//" is running"); 
@@ -59,13 +61,33 @@ public void run()
 	} 
 }
 
+//Return the nearest food position if existing, else return the curent position
+//private Point getFreshestFood() {
+//	Point freshestFood;
+//	return freshestFood;
+//}
+
 private void move() {
-	this.p.setX(this.p.getX() + (ThreadLocalRandom.current().nextInt(0, 3)-1)*10);
-	this.p.setY(this.p.getY() + (ThreadLocalRandom.current().nextInt(0, 3)-1)*10);
+	this.p.setX(this.p.getX() + (ThreadLocalRandom.current().nextInt(0, 3)-1));
+	this.p.setY(this.p.getY() + (ThreadLocalRandom.current().nextInt(0, 3)-1));
 	//repaint();
 	f.repaint();
 }
 
+private void moveTo(Point destPos, double speed) {
+	double vectX =destPos.getX() - this.p.getX();
+	double vectY =destPos.getY() - this.p.getY();
+	double norm = Math.sqrt(vectX * vectX + vectY * vectY);
+	
+	if(norm * speed != 0) {
+		this.p.setX(this.p.getX() + (vectX / norm) * speed);
+		System.out.println((vectX / norm) * speed);
+		this.p.setY(this.p.getY() +(vectY / norm) * speed);
+	}
+
+	//repaint();
+	f.repaint();
+}
 }
 
 
