@@ -13,6 +13,7 @@ public class Bird extends Thread implements Displayable {
 	Semaphore sem;
 	Point p;
 	DrawPanel f;
+	LocalTime t = LocalTime.now();
 
 
 
@@ -38,6 +39,7 @@ public class Bird extends Thread implements Displayable {
 				freshestFood = getFreshestFood();
 				
 				if (freshestFood != null) {
+					t = LocalTime.now();
 					this.p.setColor(Constants.COULEUR_BIRD);
 					//if (freshestFood.isFresh()) {
 						moveTo(freshestFood.getPoint(), 1);
@@ -45,11 +47,12 @@ public class Bird extends Thread implements Displayable {
 					if (this.p.intersect(freshestFood.getPoint())) {
 						eat(freshestFood);
 					}
-				}else {
+				}else if(t != null && ChronoUnit.SECONDS.between(t, LocalTime.now())>1){
 					this.p.setColor(Constants.COULEUR_SLEEP_BIRD);
 					f.repaint();
 				}
 				if(f.isScary()) {
+					this.p.setColor(Constants.COULEUR_BIRD);
 					Point scary = new Point(ThreadLocalRandom.current().nextInt(0, Constants.WINDOWS_WITDH - Constants.BIRD_SIZE-15),
 							ThreadLocalRandom.current().nextInt(0, Constants.WINDOW_HEIGHT - Constants.BIRD_SIZE-39));
 					while(f.isScary()) {
