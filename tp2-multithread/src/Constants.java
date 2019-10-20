@@ -8,6 +8,7 @@ public final class Constants {
 
 	public static final int WINDOW_HEIGHT = 500;
 	public static final int WINDOWS_WITDH = 700;
+	public static final int BIRD_NB = 8;
 	public static final int BIRD_SIZE = 20;
 	public static final int MEAT_SIZE = 20;
 	

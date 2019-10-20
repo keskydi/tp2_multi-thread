@@ -80,7 +80,12 @@ public class Bird extends Thread implements Displayable {
 		
 		if(f.sem.tryAcquire()) {
 			if (f.getPoints().size() > 0) {
-				freshestFood = f.getPoints().get(f.getPoints().size() - 1);
+				try {
+					freshestFood = f.getPoints().get(f.getPoints().size() - 1);
+				}catch(IndexOutOfBoundsException e) {
+					System.out.println("deux thread on reussi a avoir le semaphores");
+				}
+				
 			}
 			f.sem.release();
 		}
@@ -110,14 +115,24 @@ public class Bird extends Thread implements Displayable {
 			if (meat.getTime() < Constants.FRESH_TIME) {
 				if(f.sem.tryAcquire()) {
 					//System.out.println("gg");
-				f.getPoints().remove(f.getPoints().size() - 1);
+					try {
+						f.getPoints().remove(f.getPoints().size() - 1);
+					}catch(IndexOutOfBoundsException e) {
+						System.out.println("deux thread on reussi a avoir le semaphores");
+					}
+				
 				
 				f.sem.release();}
 			} else {
 				if(f.sem.tryAcquire()) {
 					
 					f.addNonFreshPoints(meat);
-					f.getPoints().remove(f.getPoints().size() - 1);
+					try {
+						f.getPoints().remove(f.getPoints().size() - 1);
+					}catch(IndexOutOfBoundsException e) {
+						System.out.println("deux thread on reussi a avoir le semaphores");
+					}
+					
 					meat.getPoint().setColor(Color.green);
 					meat.setFresh(false);
 					f.sem.release();

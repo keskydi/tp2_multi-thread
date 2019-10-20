@@ -36,7 +36,6 @@ public class DrawPanel extends JPanel {
 						for(int i = DrawPanel.this.nonFreshPoints.size();i>0;i--) {
 							if(DrawPanel.this.nonFreshPoints.get(i-1).getTime() > Constants.DEATH_TIME) {
 								nonFreshPoints.remove(i-1);
-								System.out.println("test");
 							}
 						}
 						if((ThreadLocalRandom.current().nextInt(0,1000) == 100) && time == null) {
@@ -57,7 +56,7 @@ public class DrawPanel extends JPanel {
 		
 		killer.start();
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < Constants.BIRD_NB; i++) {
 			Point point = new Point(ThreadLocalRandom.current().nextInt(0, Constants.WINDOWS_WITDH - Constants.BIRD_SIZE-15),
 					ThreadLocalRandom.current().nextInt(0, Constants.WINDOW_HEIGHT - Constants.BIRD_SIZE-39),
 					Constants.BIRD_SIZE,
