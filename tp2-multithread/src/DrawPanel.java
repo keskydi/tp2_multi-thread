@@ -3,7 +3,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JPanel;
@@ -11,22 +14,56 @@ import javax.swing.JPanel;
 //CTRL + SHIFT + O pour générer les imports 
 public class DrawPanel extends JPanel {
 	
-	private Color pointerColor = Color.red;
+	private Color pointerColor = null;
 
 	private ArrayList<Meat> points = new ArrayList<Meat>();
 	private ArrayList<Bird> bird = new ArrayList<Bird>();
 	private ArrayList<Meat> nonFreshPoints = new ArrayList<Meat>();
+	
+	private Thread killer;
+	public Semaphore sem;
+	
+	private Boolean scared = false;
 
 	public DrawPanel() {
+		sem = new Semaphore(1);
+		killer = new Thread() {
+			public void run() {
+				LocalTime time = null;
+				while(true) {
+					try {
+						Thread.sleep(10);
+						for(int i = DrawPanel.this.nonFreshPoints.size();i>0;i--) {
+							if(DrawPanel.this.nonFreshPoints.get(i-1).getTime() > Constants.DEATH_TIME) {
+								nonFreshPoints.remove(i-1);
+								System.out.println("test");
+							}
+						}
+						if((ThreadLocalRandom.current().nextInt(0,1000) == 100) && time == null) {
+							DrawPanel.this.scared = true;
+							time = LocalTime.now();
+						}
+						if(time != null && ChronoUnit.SECONDS.between(time, LocalTime.now()) > 1) {
+							time = null;
+							DrawPanel.this.scared = false;
+						}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		
+		killer.start();
 
 		for (int i = 0; i < 8; i++) {
-			Point point = new Point(ThreadLocalRandom.current().nextInt(0, Constants.WINDOWS_WITDH - Constants.BIRD_SIZE),
-					ThreadLocalRandom.current().nextInt(0, Constants.WINDOW_HEIGHT - Constants.BIRD_SIZE),
+			Point point = new Point(ThreadLocalRandom.current().nextInt(0, Constants.WINDOWS_WITDH - Constants.BIRD_SIZE-15),
+					ThreadLocalRandom.current().nextInt(0, Constants.WINDOW_HEIGHT - Constants.BIRD_SIZE-39),
 					Constants.BIRD_SIZE,
 					Constants.COULEUR_BIRD);
 			Bird object = new Bird(point, null, this);
 			object.start();
-			// object.sem = null;
 			bird.add(object);
 		}
 
@@ -47,11 +84,11 @@ public class DrawPanel extends JPanel {
 
 // Vous la connaissez maintenant, celle-là
 	public void paintComponent(Graphics g) {
+		
+		 g.setColor(Color.white);
+		    //On le dessine de sorte qu'il occupe toute la surface
+		    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-		g.setColor(Color.white);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-			// On parcourt notre collection de points
 			// for(Point p : this.points)
 			for (Bird m : this.bird) {
 				Point p = m.getPoint();
@@ -97,8 +134,9 @@ public class DrawPanel extends JPanel {
 	public void addNonFreshPoints(Meat nonFreshMeat) {
 		nonFreshPoints.add(nonFreshMeat);
 	}
-
-	public Meat getLastMeat() {
-		return this.points.get(this.points.size() - 1);
+	
+	public Boolean isScary() {
+		return this.scared;
 	}
+
 }

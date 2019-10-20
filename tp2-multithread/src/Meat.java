@@ -30,4 +30,8 @@ public class Meat implements Displayable {
 	public void setFresh(boolean state) {
 		this.fresh = state;
 	}
+	
+	public void resetTime() {
+		this.time = LocalTime.now();
+	}
 }
