@@ -6,17 +6,15 @@ public class Point {
 	private int size;
 	private double x;
 	private double y;
-	private String type = "ROND";
 
 	public Point() {
 	}
 
-	public Point(int x, int y, int size, Color color, String type) {
+	public Point(int x, int y, int size, Color color) {
 		this.size = size;
 		this.x = x;
 		this.y = y;
 		this.color = color;
-		this.type = type;
 	}
 
 	public boolean intersect(Point b) {
@@ -46,7 +44,6 @@ public class Point {
 	}
 
 	public double getX() {
-		// x+=5;
 		return x;
 	}
 
@@ -63,11 +60,4 @@ public class Point {
 		this.y = y;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 }
