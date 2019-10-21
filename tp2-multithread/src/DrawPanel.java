@@ -27,6 +27,8 @@ public class DrawPanel extends JPanel {
 
 	public DrawPanel() {
 		sem = new Semaphore(1);
+		
+		//thread utilisé pour changer la couleur des MEAT pas frais et faire peur au BIRD
 		killer = new Thread() {
 			public void run() {
 				LocalTime time = null;
@@ -56,6 +58,7 @@ public class DrawPanel extends JPanel {
 		
 		killer.start();
 
+		//creation des thread pigeon
 		for (int i = 0; i < Constants.BIRD_NB; i++) {
 			Point point = new Point(ThreadLocalRandom.current().nextInt(0, Constants.WINDOWS_WITDH - Constants.BIRD_SIZE-15),
 					ThreadLocalRandom.current().nextInt(0, Constants.WINDOW_HEIGHT - Constants.BIRD_SIZE-39),
@@ -66,22 +69,20 @@ public class DrawPanel extends JPanel {
 			bird.add(object);
 		}
 
+		//listener pour crée a manger sur la map
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				Meat object = new Meat(new Point(e.getX() - (Constants.MEAT_SIZE / 2), e.getY() - (Constants.MEAT_SIZE / 2),
 						Constants.MEAT_SIZE, Constants.COULEUR_MEAT));
-				// object.start();
 				points.add(object);
-				// DrawPanel t = DrawPanel.this;
-				// points.add(new Point(e.getX() - (pointerSize / 2), e.getY() - (pointerSize /
-				// 2), pointerSize, pointerColor, pointerType));
 				repaint();
 			}
 		});
 
 	}
 
-// Vous la connaissez maintenant, celle-là
+
+//affichage
 	public void paintComponent(Graphics g) {
 		
 		 g.setColor(Color.white);
@@ -91,30 +92,18 @@ public class DrawPanel extends JPanel {
 			// for(Point p : this.points)
 			for (Bird m : this.bird) {
 				Point p = m.getPoint();
-				// On récupère la couleur
 				g.setColor(p.getColor());
-
-				// Selon le type de point
 				g.fillRect((int) p.getX(), (int) p.getY(), p.getSize(), p.getSize());
-				// g.drawRect(p.getX(), p.getY(), p.getSize(), p.getSize());
 			}
 			for (Meat m : this.points) {
 				Point p = m.getPoint();
-				// On récupère la couleur
 				g.setColor(p.getColor());
-
-				// Selon le type de point
 				g.fillRect((int) p.getX(), (int) p.getY(), p.getSize(), p.getSize());
-				// g.drawRect(p.getX(), p.getY(), p.getSize(), p.getSize());
 			}
 			for (Meat m : this.nonFreshPoints) {
 				Point p = m.getPoint();
-				// On récupère la couleur
 				g.setColor(p.getColor());
-
-				// Selon le type de point
 				g.fillRect((int) p.getX(), (int) p.getY(), p.getSize(), p.getSize());
-				// g.drawRect(p.getX(), p.getY(), p.getSize(), p.getSize());
 			}
 		
 	}

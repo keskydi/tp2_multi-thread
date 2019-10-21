@@ -14,8 +14,11 @@ public final class Constants {
 	
 	public static final Color COULEUR_BIRD = Color.red;
 	public static final Color COULEUR_SLEEP_BIRD = Color.darkGray;
-	public static final Color COULEUR_MEAT = Color.blue;
+	public static final Color COULEUR_SCARED_BIRD = Color.orange;
 	
-	public static final int FRESH_TIME = 2;
-	public static final int DEATH_TIME = 2;
+	public static final Color COULEUR_MEAT = Color.blue;
+	public static final Color COULEUR_ROTTEN_MEAT = Color.green;
+	
+	public static final int FRESH_TIME = 2;//seconde
+	public static final int DEATH_TIME = 2;//seconde
 }

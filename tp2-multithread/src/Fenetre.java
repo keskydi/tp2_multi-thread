@@ -13,7 +13,7 @@ public class Fenetre extends JFrame {
 
 	public Fenetre() {
 		this.setSize(Constants.WINDOWS_WITDH, Constants.WINDOW_HEIGHT);
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

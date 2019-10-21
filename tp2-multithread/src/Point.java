@@ -31,7 +31,6 @@ public class Point {
 		}
 	}
 
-//ACCESSEURS
 	public Color getColor() {
 		return color;
 	}

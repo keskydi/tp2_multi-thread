@@ -1,11 +1,7 @@
 
-import java.awt.Color;
-import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
-import java.awt.Color;
 import java.lang.Math;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -34,6 +30,8 @@ public class Bird extends Thread implements Displayable {
 			// Displaying the thread that is running
 			System.out.println("Thread " + Thread.currentThread().getId() + " is running");
 			Meat freshestFood;
+			
+			//boucle d'action du thread
 			while (true) {
 				Thread.sleep(10);
 				freshestFood = getFreshestFood();
@@ -41,9 +39,8 @@ public class Bird extends Thread implements Displayable {
 				if (freshestFood != null) {
 					t = LocalTime.now();
 					this.p.setColor(Constants.COULEUR_BIRD);
-					//if (freshestFood.isFresh()) {
-						moveTo(freshestFood.getPoint(), 1);
-					//}
+					moveTo(freshestFood.getPoint(), 1);
+					
 					if (this.p.intersect(freshestFood.getPoint())) {
 						eat(freshestFood);
 					}
@@ -52,7 +49,7 @@ public class Bird extends Thread implements Displayable {
 					f.repaint();
 				}
 				if(f.isScary()) {
-					this.p.setColor(Constants.COULEUR_BIRD);
+					this.p.setColor(Constants.COULEUR_SCARED_BIRD);
 					Point scary = new Point(ThreadLocalRandom.current().nextInt(0, Constants.WINDOWS_WITDH - Constants.BIRD_SIZE-15),
 							ThreadLocalRandom.current().nextInt(0, Constants.WINDOW_HEIGHT - Constants.BIRD_SIZE-39));
 					while(f.isScary()) {
@@ -73,7 +70,7 @@ public class Bird extends Thread implements Displayable {
 	}
 
 	
-	//todo sem here
+	//renvoie le dernier element de la liste de MEAT (le plus frais)
 	private Meat getFreshestFood() {
 		Meat freshestFood = null;
 		
@@ -95,6 +92,7 @@ public class Bird extends Thread implements Displayable {
 		return freshestFood;
 	}
 
+	//deplace le  BIRD vers un point donné
 	private void moveTo(Point destPos, double speed) {
 		double vectX = destPos.getX() - this.p.getX();
 		double vectY = destPos.getY() - this.p.getY();
@@ -105,16 +103,15 @@ public class Bird extends Thread implements Displayable {
 			this.p.setY(this.p.getY() + (vectY / norm) * speed);
 		}
 
-		// repaint();
 		f.repaint();
 	}
 
+	//mange une MEAT
 	private void eat(Meat meat) {
 		if (meat.sem.tryAcquire()) {
 			// number of second
 			if (meat.getTime() < Constants.FRESH_TIME) {
 				if(f.sem.tryAcquire()) {
-					//System.out.println("gg");
 					try {
 						f.getPoints().remove(f.getPoints().size() - 1);
 					}catch(IndexOutOfBoundsException e) {
@@ -133,7 +130,7 @@ public class Bird extends Thread implements Displayable {
 						System.out.println("deux thread on reussi a avoir le semaphores");
 					}
 					
-					meat.getPoint().setColor(Color.green);
+					meat.getPoint().setColor(Constants.COULEUR_ROTTEN_MEAT);
 					meat.setFresh(false);
 					f.sem.release();
 				}
