@@ -6,7 +6,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 
-//CTRL + SHIFT + O pour générer les imports 
 public class Fenetre extends JFrame {
 
 	private DrawPanel drawPanel = new DrawPanel();
