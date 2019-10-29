@@ -12,13 +12,13 @@ __Class Bird:
 		- Lors de l'événement de fuite des pigeons, le pigeon a peur et se dirige alors vers un point aléatoire de la zone de jeu;
 
 __Class Meat:
-	La classe Meat définit la nourriture, elle implémente toutes les fonctions qui permettent de récupérer le temps depuis lequel elle à été implémentée, de reset ce dernier, ou encore de changer son état (fraiche ou non).
+	La classe Meat définit la nourriture, elle implémente toutes les fonctions qui permettent de récupérer le temps depuis lequel elle a été implémentée, de reset ce dernier, ou encore de changer son état (fraiche ou non).
 
 __Class Constants:
-	Cette classe permet de centraliser un ensemble de constantes utilisées à travers le programme. Elle permet donc d'accéder facilement aux paramètres de lancement du programme (nombre de pigeon , taille de la fenêtre, etc...), et de pouvoir les changer rapidement, sans avoir à parcourir tous les scripts.
+	Cette classe permet de centraliser un ensemble de constantes utilisées à travers le programme. Elle permet donc d'accéder facilement aux paramètres de lancement du programme (nombre de pigeons , taille de la fenêtre, etc...), et de pouvoir les changer rapidement, sans avoir à parcourir tous les scripts.
 
 __Class Fenetre
-	Cette classe définit la fenêtre d'affichage. Elle permet donc de modifier sa taille et son comportement.
+	Cette classe définit la fenêtre d'affichage. Elle permet donc de modifier sa taille ainsi que son comportement.
 
 __Class DrawPanel
 	La classe DrawPanel définit la zone de jeu. Elle contient une liste de nourriture et une liste de pigeons, de plus elle crée un thread qui gére la couleur des "Meat" en fonction de leur état de fraicheur, ainsi que leur destruction quand celles-ci sont périmés depuis un certain temps. Elle gére aussi l'événement qui fait entrer les pigeons dans leur état de fuite.
